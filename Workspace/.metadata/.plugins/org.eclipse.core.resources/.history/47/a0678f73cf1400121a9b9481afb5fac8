@@ -1,0 +1,787 @@
+package headfirst.decorator.starbuzz;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.text.DecimalFormat;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+
+public class CopyOfCreateGUI {
+
+	JFrame frmStarbuzzCoffee = new JFrame();
+
+	JFrame outputPanel = new JFrame();
+
+	Beverage beverage;
+	JPanel coffee_panel = new JPanel();
+
+
+	JRadioButton mocha0shots = new JRadioButton("0 shots");
+	JRadioButton mocha1shot = new JRadioButton("1 shot");
+	JRadioButton mocha2shots = new JRadioButton("2 shots");
+	JRadioButton mocha3shots = new JRadioButton("3 shots");
+
+	JRadioButton whip0shots = new JRadioButton("0 shots");
+	JRadioButton whip1shot = new JRadioButton("1 shot");
+	JRadioButton whip2shots = new JRadioButton("2 shots");
+	JRadioButton whip3shots = new JRadioButton("3 shots");
+
+	JRadioButton milk0shots = new JRadioButton("0 shots");
+	JRadioButton milk1shot = new JRadioButton("1 shot");
+	JRadioButton milk2shots = new JRadioButton("2 shots");
+	JRadioButton milk3shots = new JRadioButton("3 shots");
+
+	JRadioButton soy0shots = new JRadioButton("0 shots");
+	JRadioButton soy1shot = new JRadioButton("1 shot");
+	JRadioButton soy2shots = new JRadioButton("2 shots");
+	JRadioButton soy3shots = new JRadioButton("3 shot");
+
+	int mocha;
+	int whip;
+	int milk;
+	int drinks;
+	int soy;
+	String outputString = "";
+	DecimalFormat df = new DecimalFormat("#.##");
+
+	double total;
+
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_4 = new ButtonGroup();
+
+	JCheckBox chckbxHouse = new JCheckBox("House Blend");
+	JCheckBox chckbxDarkRoast = new JCheckBox("Dark Roast");
+	JCheckBox chckbxEspresso = new JCheckBox("Espresso");
+	JCheckBox chckbxDecaf = new JCheckBox("Decaf");
+
+	// private final JTextField output = new JTextField();
+	private final JTextArea output = new JTextArea();
+	private final JScrollPane scrollPane = new JScrollPane();
+
+	public CopyOfCreateGUI() {
+
+		gui();
+	}
+
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	public void gui() {
+
+
+		frmStarbuzzCoffee.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmStarbuzzCoffee.getContentPane().setForeground(new Color(0, 153, 51));
+		frmStarbuzzCoffee.getContentPane().setBackground(new Color(0, 153, 51));
+		frmStarbuzzCoffee.setTitle("StarBuzz Coffee");
+
+		frmStarbuzzCoffee.setVisible(true);
+		frmStarbuzzCoffee.setSize(644, 519);
+		frmStarbuzzCoffee.getContentPane().setLayout(null);
+
+		coffee_panel.setBounds(10, 136, 108, 137);
+		coffee_panel.setBorder(new TitledBorder(null, "Coffee", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		frmStarbuzzCoffee.getContentPane().add(coffee_panel);
+		mocha0shots.setBounds(6, 23, 79, 23);
+
+		// ******************** Mocha Shot *********************
+
+		// mocha shot 0
+		mocha0shots.setEnabled(false);
+		mocha0shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+				selections("mocha");
+				formatDescription();
+			}
+		});
+		mocha1shot.setBounds(4, 49, 79, 23);
+
+		// mocha shot 1
+		mocha1shot.setEnabled(false);
+		mocha1shot.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+				selections("mocha");
+				beverage = new Mocha(beverage);
+				// output.setText(beverage.getDescription() + " $" +
+				// beverage.cost());
+				formatDescription();
+			}
+		});
+		mocha2shots.setBounds(6, 79, 79, 23);
+		// mocha shot 2
+		mocha2shots.setEnabled(false);
+		mocha2shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+
+				selections("mocha");
+				beverage = new Mocha(beverage);
+				beverage = new Mocha(beverage);
+				// output.setText(beverage.getDescription() + " $" +
+				// beverage.cost());
+				formatDescription();
+			}
+		});
+		mocha3shots.setBounds(6, 107, 79, 23);
+		// mocha shot 3
+		mocha3shots.setEnabled(false);
+		mocha3shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+
+				selections("mocha");
+				beverage = new Mocha(beverage);
+				beverage = new Mocha(beverage);
+				beverage = new Mocha(beverage);
+				// output.setText(beverage.getDescription() + " $" +
+				// beverage.cost());
+				formatDescription();
+			}
+		});
+		// ******************** Mocha Shot ****************
+
+		// ************* Whip Shot ***********************
+
+		// whip shot 0
+		buttonGroup_2.add(whip0shots);
+		whip0shots.setBounds(6, 23, 96, 23);
+		whip0shots.setEnabled(false);
+
+		whip0shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+
+				selections("whip");
+				formatDescription();
+
+			}
+		});
+		// whip shot 1
+		buttonGroup_2.add(whip1shot);
+		whip1shot.setBounds(6, 51, 96, 23);
+		whip1shot.setEnabled(false);
+
+		whip1shot.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+
+				selections("whip");
+				beverage = new Whip(beverage);
+				formatDescription();
+
+			}
+		});
+
+		// whip shot 2
+		buttonGroup_2.add(whip2shots);
+		whip2shots.setBounds(6, 79, 96, 23);
+		whip2shots.setEnabled(false);
+		whip2shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+
+				selections("whip");
+				beverage = new Whip(beverage);
+				beverage = new Whip(beverage);
+				formatDescription();
+			}
+		});
+		buttonGroup_2.add(whip3shots);
+		whip3shots.setBounds(6, 107, 96, 23);
+
+		// whip shot 3
+		whip3shots.setEnabled(false);
+		whip3shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+
+				selections("whip");
+				beverage = new Whip(beverage);
+				beverage = new Whip(beverage);
+				beverage = new Whip(beverage);
+				formatDescription();
+
+			}
+		});
+		soy0shots.setBounds(6, 25, 80, 23);
+
+		// ************* Whip Shot ***********************
+
+		// ************* Soy Shot **********************************
+		// soy shot 0
+		soy0shots.setEnabled(false);
+		soy0shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("soy");
+				formatDescription();
+			}
+		});
+		soy1shot.setBounds(6, 53, 80, 23);
+		// soy shot 1
+		soy1shot.setEnabled(false);
+		soy1shot.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("soy");
+				beverage = new Soy(beverage);
+				formatDescription();
+			}
+		});
+		soy2shots.setBounds(6, 81, 80, 23);
+
+		// soy shot 2
+		soy2shots.setEnabled(false);
+		soy2shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("soy");
+
+				beverage = new Soy(beverage);
+				beverage = new Soy(beverage);
+				formatDescription();
+			}
+		});
+		soy3shots.setBounds(6, 109, 80, 23);
+
+		// soy shot 3
+		soy3shots.setEnabled(false);
+		soy3shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("soy");
+
+				beverage = new Soy(beverage);
+				beverage = new Soy(beverage);
+				beverage = new Soy(beverage);
+				formatDescription();
+			}
+		});
+		// ********************* soy shot ****************************
+
+		// **************** Milk shot ************************************
+
+		// milk shot 0
+		buttonGroup_4.add(milk0shots);
+		milk0shots.setBounds(6, 25, 96, 23);
+		milk0shots.setEnabled(false);
+		milk0shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("milk");
+				formatDescription();
+			}
+		});
+
+		// milk shot 1
+		buttonGroup_4.add(milk1shot);
+		milk1shot.setBounds(6, 53, 96, 23);
+		milk1shot.setEnabled(false);
+		milk1shot.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("milk");
+
+				beverage = new Milk(beverage);
+				formatDescription();
+			}
+		});
+
+		// milk shot 2
+		buttonGroup_4.add(milk2shots);
+		milk2shots.setBounds(6, 81, 96, 23);
+		milk2shots.setEnabled(false);
+		milk2shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("milk");
+				beverage = new Milk(beverage);
+				beverage = new Milk(beverage);
+
+				formatDescription();
+			}
+		});
+
+		// milk shot 3
+		buttonGroup_4.add(milk3shots);
+		milk3shots.setBounds(6, 109, 96, 23);
+		milk3shots.setEnabled(false);
+		milk3shots.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				selections("milk");
+
+				beverage = new Milk(beverage);
+				beverage = new Milk(beverage);
+				beverage = new Milk(beverage);
+				formatDescription();
+
+			}
+		});
+
+		// **************** Milk shot ************************************
+
+		buttonGroup.add(chckbxHouse);
+		chckbxHouse.setBounds(6, 20, 85, 23);
+		chckbxHouse.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+
+				beverage = new HouseBlend();
+				selections("house");
+				makeVisible(true);
+				formatDescription();
+			}
+		});
+		coffee_panel.setLayout(null);
+		coffee_panel.add(chckbxHouse);
+
+		chckbxDarkRoast.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+
+				beverage = new DarkRoast();
+				selections("dark");
+				makeVisible(true);
+				formatDescription();
+			}
+		});
+		buttonGroup.add(chckbxDarkRoast);
+		chckbxDarkRoast.setBounds(6, 45, 79, 23);
+		coffee_panel.add(chckbxDarkRoast);
+
+		buttonGroup.add(chckbxEspresso);
+		chckbxEspresso.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+				beverage = new Espresso();
+				selections("espresso");
+				makeVisible(true);
+				formatDescription();
+			}
+		});
+		chckbxEspresso.setBounds(6, 70, 97, 23);
+		coffee_panel.add(chckbxEspresso);
+
+		buttonGroup.add(chckbxDecaf);
+		chckbxDecaf.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				beverage = null;
+
+				beverage = new Decaf();
+				selections("decaf");
+				makeVisible(true);
+				formatDescription();
+			}
+		});
+
+		chckbxDecaf.setBounds(6, 95, 97, 23);
+		coffee_panel.add(chckbxDecaf);
+
+		JPanel moca_panel = new JPanel();
+		moca_panel.setBounds(175, 80, 108, 137);
+		moca_panel.setBorder(new TitledBorder(null, "Mocha", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		frmStarbuzzCoffee.getContentPane().add(moca_panel);
+		moca_panel.setLayout(null);
+
+		buttonGroup_1.add(mocha0shots);
+		moca_panel.add(mocha0shots);
+		buttonGroup_1.add(mocha1shot);
+
+		moca_panel.add(mocha1shot);
+
+		buttonGroup_1.add(mocha2shots);
+		moca_panel.add(mocha2shots);
+
+		buttonGroup_1.add(mocha3shots);
+		moca_panel.add(mocha3shots);
+
+		JButton btnDone = new JButton("Make Drink");
+		btnDone.setBounds(259, 394, 127, 23);
+		btnDone.setVisible(true);
+		btnDone.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				outputString = output.getText();
+				outputString += "\nNew Drink\n";
+				total += beverage.cost();
+				beverage = null;
+				reset();
+				makeVisible(false);
+				drinks++;
+
+			}
+		});
+		frmStarbuzzCoffee.getContentPane().add(btnDone);
+
+		JPanel whip_panel = new JPanel();
+		whip_panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Whip", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		whip_panel.setBounds(293, 80, 108, 137);
+		frmStarbuzzCoffee.getContentPane().add(whip_panel);
+		frmStarbuzzCoffee.validate();
+		whip_panel.validate();
+		frmStarbuzzCoffee.repaint();
+		whip_panel.setLayout(null);
+		whip_panel.add(whip0shots);
+		whip_panel.add(whip1shot);
+
+		whip_panel.add(whip2shots);
+
+		whip_panel.add(whip3shots);
+
+		JPanel soy_panel = new JPanel();
+		soy_panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Soy", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		soy_panel.setBounds(175, 228, 108, 139);
+		frmStarbuzzCoffee.getContentPane().add(soy_panel);
+		soy_panel.setLayout(null);
+
+		buttonGroup_3.add(soy0shots);
+		soy_panel.add(soy0shots);
+		buttonGroup_3.add(soy1shot);
+		soy_panel.add(soy1shot);
+
+		buttonGroup_3.add(soy2shots);
+		soy_panel.add(soy2shots);
+
+		buttonGroup_3.add(soy3shots);
+		soy_panel.add(soy3shots);
+
+		JPanel milk_panel = new JPanel();
+		milk_panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Milk", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		milk_panel.setBounds(293, 228, 108, 139);
+		frmStarbuzzCoffee.getContentPane().add(milk_panel);
+		milk_panel.setLayout(null);
+
+		milk_panel.add(milk0shots);
+		milk_panel.add(milk1shot);
+
+		milk_panel.add(milk2shots);
+
+		milk_panel.add(milk3shots);
+
+		JButton btnClearOrder = new JButton("Clear Order");
+		btnClearOrder.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				beverage = null;
+				outputString = null;
+				output.setText("");
+				total = 0;
+				drinks = 0;
+				reset();
+			}
+		});
+		btnClearOrder.setBounds(10, 312, 121, 23);
+		frmStarbuzzCoffee.getContentPane().add(btnClearOrder);
+
+		JButton btnPay = new JButton("");
+		btnPay.setIcon(new ImageIcon(CopyOfCreateGUI.class.getResource("/headfirst/decorator/pay.jpg")));
+		btnPay.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				final JFrame payFrame = new JFrame();
+				
+				payFrame.setSize(600, 300);
+				JTextField pay = new JTextField();
+				JPanel payPanel = new JPanel();
+				payPanel.setLayout(new FlowLayout());
+				payFrame.getContentPane().setForeground(new Color(0, 153, 51));
+				payFrame.getContentPane().setBackground(new Color(0, 153, 51));
+				payPanel.setForeground(new Color(0, 153, 51));
+				payPanel.setBackground(new Color(0, 153, 51));
+
+				if (beverage != null) {
+					outputString = output.getText();
+					total += beverage.cost();
+					beverage = null;
+					drinks++;
+				}
+
+				payFrame.getContentPane().setLayout(new BorderLayout());
+				payFrame.getContentPane().add(pay, BorderLayout.NORTH);
+				for (int i = 0; i < drinks; i++) {
+					payPanel.add(new JLabel(new ImageIcon(CopyOfCreateGUI.class.getResource("/headfirst/decorator/java.png"))));
+
+				}
+				payFrame.getContentPane().add(payPanel);
+				pay.setHorizontalAlignment(JTextField.CENTER);
+				pay.setText("Total: $" + df.format(total));
+
+				payFrame.setVisible(true);
+
+				makeVisible(false);
+				chckbxHouse.setEnabled(false);
+				chckbxDarkRoast.setEnabled(false);
+				chckbxDecaf.setEnabled(false);
+				chckbxEspresso.setEnabled(false);
+
+				payFrame.addWindowListener(new WindowAdapter() {
+
+					@Override
+					public void windowClosing(WindowEvent arg0) {
+
+						payFrame.dispose();
+						reset();
+						outputString = null;
+						output.setText("");
+						total = 0;
+						chckbxHouse.setEnabled(true);
+						chckbxDarkRoast.setEnabled(true);
+						chckbxDecaf.setEnabled(true);
+						chckbxEspresso.setEnabled(true);
+						drinks = 0;
+
+					}
+				});
+
+			}
+		});
+		btnPay.setBounds(10, 378, 228, 80);
+		frmStarbuzzCoffee.getContentPane().add(btnPay);
+
+		JTextArea txtrStarbuzzCoffee = new JTextArea();
+		txtrStarbuzzCoffee.setEditable(false);
+		txtrStarbuzzCoffee.setBackground(new Color(0, 153, 51));
+		txtrStarbuzzCoffee.setFont(new Font("Script MT Bold", Font.BOLD, 41));
+		txtrStarbuzzCoffee.setText("StarBuzz Coffee");
+		txtrStarbuzzCoffee.setBounds(137, 11, 385, 58);
+		frmStarbuzzCoffee.getContentPane().add(txtrStarbuzzCoffee);
+		scrollPane.setBounds(438, 69, 161, 382);
+
+		frmStarbuzzCoffee.getContentPane().add(scrollPane);
+		scrollPane.setViewportView(output);
+		output.setBackground(UIManager.getColor("Panel.background"));
+		output.setEditable(false);
+		output.setColumns(10);
+
+		whip_panel.validate();
+		soy_panel.validate();
+		milk_panel.validate();
+
+		frmStarbuzzCoffee.repaint();
+
+	}
+
+	public void makeVisible(boolean val) {
+
+		mocha0shots.setEnabled(val);
+		mocha1shot.setEnabled(val);
+		mocha2shots.setEnabled(val);
+		mocha3shots.setEnabled(val);
+
+		whip0shots.setEnabled(val);
+		whip1shot.setEnabled(val);
+		whip2shots.setEnabled(val);
+		whip3shots.setEnabled(val);
+
+		soy0shots.setEnabled(val);
+		soy1shot.setEnabled(val);
+		soy2shots.setEnabled(val);
+		soy3shots.setEnabled(val);
+
+		milk0shots.setEnabled(val);
+		milk1shot.setEnabled(val);
+		milk2shots.setEnabled(val);
+		milk3shots.setEnabled(val);
+	}
+
+	public void selections(String type) {
+
+		if (chckbxHouse.isSelected() && type != "house")
+			beverage = new HouseBlend();
+		if (chckbxDecaf.isSelected() && type != "decaf")
+			beverage = new Decaf();
+		if (chckbxEspresso.isSelected() && type != "espresso")
+			beverage = new Espresso();
+		if (chckbxDarkRoast.isSelected() && type != "dark")
+			beverage = new DarkRoast();
+
+		if (type != "mocha") {
+			if (mocha1shot.isSelected())
+				beverage = new Mocha(beverage);
+			if (mocha2shots.isSelected()) {
+				beverage = new Mocha(beverage);
+				beverage = new Mocha(beverage);
+			}
+			if (mocha3shots.isSelected()) {
+				beverage = new Mocha(beverage);
+				beverage = new Mocha(beverage);
+				beverage = new Mocha(beverage);
+			}
+		}
+
+		if (type != "whip") {
+			if (whip1shot.isSelected())
+				beverage = new Whip(beverage);
+			if (whip2shots.isSelected()) {
+				beverage = new Whip(beverage);
+				beverage = new Whip(beverage);
+			}
+			if (whip3shots.isSelected()) {
+				beverage = new Whip(beverage);
+				beverage = new Whip(beverage);
+				beverage = new Whip(beverage);
+			}
+		}
+
+		if (type != "milk") {
+			if (milk1shot.isSelected())
+				beverage = new Milk(beverage);
+			if (milk2shots.isSelected()) {
+				beverage = new Milk(beverage);
+				beverage = new Milk(beverage);
+			}
+			if (milk3shots.isSelected()) {
+				beverage = new Milk(beverage);
+				beverage = new Milk(beverage);
+				beverage = new Milk(beverage);
+			}
+		}
+
+		if (type != "soy") {
+			if (soy1shot.isSelected())
+				beverage = new Soy(beverage);
+			if (soy2shots.isSelected()) {
+				beverage = new Soy(beverage);
+				beverage = new Soy(beverage);
+			}
+			if (soy3shots.isSelected()) {
+				beverage = new Soy(beverage);
+				beverage = new Soy(beverage);
+				beverage = new Soy(beverage);
+			}
+		}
+
+	}
+
+	public void formatDescription() {
+
+		int mochacount = 0;
+		int whipcount = 0;
+		int milkcount = 0;
+		int soycount = 0;
+		String temp = beverage.getDescription();
+		output.setText(outputString);
+
+		if (temp.contains(", Mocha")) {
+
+			while (temp.contains(", Mocha")) {
+				temp = temp.replaceFirst(", Mocha", "");
+				mochacount++;
+			}
+
+			output.append("    " + mochacount + "x" + "    Mocha " + "\n");
+		}
+		if (temp.contains(", Whip")) {
+			while (temp.contains(", Whip")) {
+				temp = temp.replaceFirst(", Whip", "");
+				whipcount++;
+			}
+
+			output.append("    " + whipcount + "x" + "    Whip " + "\n");
+		}
+		if (temp.contains(", Milk")) {
+			while (temp.contains(", Milk")) {
+				temp = temp.replaceFirst(", Milk", "");
+				milkcount++;
+			}
+
+			output.append("    " + milkcount + "x" + "    Milk " + "\n");
+		}
+		if (temp.contains(", Soy")) {
+			while (temp.contains(", Soy")) {
+				temp = temp.replaceFirst(", Soy", "");
+				soycount++;
+			}
+			temp += " " + soycount + "x" + " Soy ";
+			output.append("    " + soycount + "x" + "    Soy" + "\n");
+		}
+
+		if (chckbxHouse.isSelected())
+			output.append("    House Blend \t$" + df.format(beverage.cost()) + "\n");
+		if (chckbxDecaf.isSelected())
+			output.append("    Decaf   \t$" + df.format(beverage.cost()) + "\n");
+		if (chckbxEspresso.isSelected())
+			output.append("    Espresso   \t$" + df.format(beverage.cost()) + "\n");
+		if (chckbxDarkRoast.isSelected())
+			output.append("    Dark Roast   \t$" + df.format(beverage.cost()) + "\n");
+
+	}
+
+	public void reset() {
+
+		buttonGroup.clearSelection();
+		buttonGroup_1.clearSelection();
+		buttonGroup_2.clearSelection();
+		buttonGroup_3.clearSelection();
+		buttonGroup_4.clearSelection();
+	}
+}

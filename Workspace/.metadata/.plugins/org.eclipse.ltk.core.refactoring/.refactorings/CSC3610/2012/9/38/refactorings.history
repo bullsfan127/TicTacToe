@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;headfirst.weather&apos; to &apos;headfirst.observer.weather&apos;&#x0D;&#x0A;- Original project: &apos;CSC3610&apos;&#x0D;&#x0A;- Original element: &apos;CSC3610/src/headfirst.weather&apos;&#x0D;&#x0A;- Renamed element: &apos;CSC3610/src/headfirst.observer.weather&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;headfirst.weather&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;headfirst.weather" name="headfirst.observer.weather" qualified="false" references="true" stamp="1347978450071" textual="false" version="1.0"/>
+</session>

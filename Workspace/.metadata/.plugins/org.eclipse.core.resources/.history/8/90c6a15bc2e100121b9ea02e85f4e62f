@@ -1,0 +1,71 @@
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class MainMenu {
+
+	private JFrame frame = new JFrame("Tic-Tac-Toe");
+	private boolean singlePlayer = true;
+
+	MainMenu() {
+
+		frame.getContentPane().setBackground(Color.BLACK);
+
+		frame.setVisible(true);
+		frame.setSize(501, 451);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		JButton btnSinglePlayer = new JButton("Single Player");
+		btnSinglePlayer.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				singlePlayer = true;
+				frame.dispose();
+				new CreateGUI(true);
+			}
+		});
+		btnSinglePlayer.setBounds(171, 168, 145, 46);
+		frame.getContentPane().add(btnSinglePlayer);
+
+		JButton btnPlayers = new JButton("2 Players");
+		btnPlayers.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				singlePlayer = false;
+				frame.dispose();
+				new CreateGUI(false);
+			}
+		});
+		btnPlayers.setBounds(171, 258, 145, 46);
+		frame.getContentPane().add(btnPlayers);
+
+		JLabel lblTictactoe = new JLabel("Tic-Tac-Toe");
+		lblTictactoe.setForeground(Color.RED);
+		lblTictactoe.setBounds(213, 38, 56, 14);
+		frame.getContentPane().add(lblTictactoe);
+
+		JLabel lblByJonathanHeavin = new JLabel("By: Jonathan Heavin");
+		lblByJonathanHeavin.setForeground(Color.RED);
+		lblByJonathanHeavin.setBounds(191, 63, 100, 14);
+		frame.getContentPane().add(lblByJonathanHeavin);
+
+	}
+
+	public boolean IsSinglePLayer() {
+
+		return singlePlayer;
+	}
+
+	public JFrame GetFrame() {
+
+		return frame;
+	}
+
+}

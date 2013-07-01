@@ -1,0 +1,93 @@
+
+package headfirst.observer.weather;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+// The WeatherClientDisplay class sets up a display for an observer/smartphone the shows weather data as it updates
+public class WeatherClientDisplay extends JFrame implements Observer, DisplayElement
+{
+	private static final long serialVersionUID = 1L;
+	private float temperature;
+	private float humidity;
+	private float pressure;
+	private JTextArea displaywx = null;
+	private JTextField temp=null;
+	private JTextField hum=null;
+	private JTextField press=null;
+
+	// Receives the name and wetherData reference passed from the NewWeatherCilent class.  The name is only used in the title.
+	public WeatherClientDisplay( String name, WeatherData weatherData )
+	{
+		// Registers the this instance of WeatherClientDisplay with the WeatherData class for updates, etc
+		weatherData.registerObserver( this );
+		// Let's create our GUI
+		CreateGUI( name );
+	}
+
+	public void CreateGUI( String name )
+	{
+		JFrame p1=new JFrame();
+		JLabel l1=new JLabel("Temperature");
+		
+		JLabel l2= new JLabel("Humidity");
+		JLabel l3= new JLabel("Pressure");
+		p1.setLayout(new FlowLayout(FlowLayout.CENTER));	
+		p1.add(l1);
+		p1.add(temp);
+		p1.add(l2);
+		p1.add(hum);
+		p1.add(l3);
+		p1.add(press);
+		
+		
+
+	
+		p1.setTitle( name + "'s Smart Phone" );
+		p1.setSize( 300, 200 );
+		// Note how this is a class variable for use in other methods within the class
+		
+		
+		p1.setVisible( true );
+		p1.setLocationRelativeTo( null );
+		
+
+//		JPanel p2=new JPanel();
+//		this.add(p1,BorderLayout.CENTER);
+//		this.setTitle( name + "'s Smart Phone" );
+//		this.setSize( 300, 200 );
+//		// Note how this is a class variable for use in other methods within the class
+//		displaywx = new JTextArea();
+//		this.add( displaywx );
+//		this.setVisible( true );
+//		this.setLocationRelativeTo( null );
+	}
+
+	// This gets called every time the WetherData class gets the new WeatherStation class data
+	public void update( float temperature, float humidity, float pressure )
+	{
+		this.temperature = temperature;
+		this.humidity = humidity;
+		this.pressure = pressure;
+		// New data is loaded, time to display
+		display();
+	}
+
+	public void display()
+	{
+		// Need to wipe out old text so the display doesn't get jumbled
+		//displaywx.removeAll();
+		// Rewrite display with new data
+		//displaywx.setText( "Current conditions:\n\n" + "Temperature" + temperature + " degrees F\n\n" +"Humidity"+ humidity + " % humidity\n\n" + "Pressure: "+pressure + " inHg" );
+		temp.removeAll();
+		hum.removeAll();
+		press.removeAll();
+		temp.setText(Float.toString(temperature));
+		hum.setText(Float.toString(humidity));
+		press.setText(Float.toString(pressure));
+	}
+}

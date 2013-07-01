@@ -1,0 +1,277 @@
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public class CreateGUI implements ActionListener {
+
+	private JFrame frame = new JFrame("Tic-Tac-Toe");
+
+	private JButton buttons[] = new JButton[9];
+	private int turn = 0;
+	private int winner = -1;
+	private int[][] winningCombos = { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 }, { 0, 3, 6 }, { 1, 4, 7 }, { 2, 5, 8 }, { 0, 4, 8 },
+			{ 2, 4, 6 } };
+	private Color defaultColor;
+	boolean singlePlayer = true;
+
+	CreateGUI(boolean isSinglePlayer, JFrame iframe) {
+
+		frame=iframe;
+//		frame.setVisible(true);
+//		frame.setSize(501, 451);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new GridLayout(3, 3));
+		
+		singlePlayer=isSinglePlayer;
+		
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i] = new JButton();
+			frame.add(buttons[i]);
+			buttons[i].addActionListener(this);
+		}
+		defaultColor = buttons[0].getBackground();
+
+	}
+
+	public void actionPerformed(ActionEvent a) {
+
+		String letter = "O";
+
+		if (turn % 2 == 0) {
+			letter = "X";
+		}
+
+		JButton pressed = (JButton) a.getSource();
+		pressed.setText(letter);
+		pressed.setEnabled(false);
+		pressed.setBackground(Color.RED);
+		turn++;
+
+		if (singlePlayer && !CheckforWin()) {
+
+			AI();
+		}
+
+	}
+
+	private void AI() {
+
+		if (turn == 1 && buttons[4].isEnabled()) {
+			// play in middle
+
+			buttons[4].setText("O");
+			buttons[4].setEnabled(false);
+			buttons[4].setBackground(Color.BLACK);
+
+		}
+		
+		else if (turn == 1 && !buttons[4].isEnabled()) {
+			// play in middle
+
+			buttons[8].setText("O");
+			buttons[8].setEnabled(false);
+			buttons[8].setBackground(Color.BLACK);
+
+		}
+
+		else if (WinOrLose("X")) {
+		}
+		else if (WinOrLose("O")) {
+		}
+			// play on middle sides
+		else if (buttons[3].isEnabled()) {
+				buttons[3].setText("O");
+				buttons[3].setEnabled(false);
+				buttons[3].setBackground(Color.BLACK);
+			}
+
+			else if (buttons[1].isEnabled()) {
+				buttons[1].setText("O");
+				buttons[1].setEnabled(false);
+				buttons[1].setBackground(Color.BLACK);
+			} else if (buttons[7].isEnabled()) {
+				buttons[7].setText("O");
+				buttons[7].setEnabled(false);
+				buttons[7].setBackground(Color.BLACK);
+			}
+
+			else if (buttons[5].isEnabled()) {
+				buttons[5].setText("O");
+				buttons[5].setEnabled(false);
+				buttons[5].setBackground(Color.BLACK);
+			}
+
+			// check corners
+			else if (buttons[0].getText() == "X" && buttons[8].isEnabled()) {
+				buttons[8].setText("O");
+				buttons[8].setEnabled(false);
+				buttons[8].setBackground(Color.BLACK);
+			} else if (buttons[2].getText() == "X" && buttons[6].isEnabled()) {
+				buttons[6].setText("O");
+				buttons[6].setEnabled(false);
+				buttons[6].setBackground(Color.BLACK);
+			}
+
+			else if (buttons[6].getText() == "X" && buttons[2].isEnabled()) {
+				buttons[2].setText("O");
+				buttons[2].setEnabled(false);
+				buttons[2].setBackground(Color.BLACK);
+			}
+
+			else if (buttons[8].getText() == "X" && buttons[0].isEnabled()) {
+				buttons[0].setText("O");
+				buttons[0].setEnabled(false);
+				buttons[0].setBackground(Color.BLACK);
+			}
+
+			else if (turn != 9) {
+				Random r = new Random();
+				int index = r.nextInt(9);
+
+				while (!buttons[index].isEnabled()) {
+					index = r.nextInt(9);
+
+				}
+				buttons[index].setText("O");
+				buttons[index].setEnabled(false);
+				buttons[index].setBackground(Color.BLACK);
+			}
+
+		
+
+		turn++;
+
+		CheckforWin();
+	}
+
+	private boolean WinOrLose(String letter) {
+
+		int count = 0;
+		int[] enabled;
+	
+		for (int i = 0; i < winningCombos.length; i++) {
+			enabled = new int[3];
+			count=0;
+			
+
+			for (int j = 0; j < winningCombos[i].length; j++) {
+				int temp = winningCombos[i][j];
+				if (!buttons[temp].isEnabled()) {
+					if (buttons[temp].getText().equals(letter))
+						count++;
+								
+				}
+				enabled[j] = temp;
+			}
+
+			if (count == 2 ) {
+				if (buttons[enabled[0]].isEnabled()) {
+					buttons[enabled[0]].setText("O");
+					buttons[enabled[0]].setEnabled(false);
+					buttons[enabled[0]].setBackground(Color.BLACK);
+					return true;
+				} else if (buttons[enabled[1]].isEnabled()) {
+					buttons[enabled[1]].setText("O");
+					buttons[enabled[1]].setEnabled(false);
+					buttons[enabled[1]].setBackground(Color.BLACK);
+					return true;
+				}
+
+				else if (buttons[enabled[2]].isEnabled()) {
+					buttons[enabled[2]].setText("O");
+					buttons[enabled[2]].setEnabled(false);
+					buttons[enabled[2]].setBackground(Color.BLACK);
+					return true;
+				}
+
+				
+			}
+		}
+		return false;
+	}
+
+	private boolean CheckforWin() {
+
+		boolean win = false;
+		// Horizontal
+		if (buttons[0].getText() == buttons[1].getText() && buttons[2].getText() == buttons[0].getText()
+				&& buttons[0].getText() != "") {
+			win = true;
+		}
+		if (buttons[3].getText() == buttons[4].getText() && buttons[5].getText() == buttons[3].getText()
+				&& buttons[3].getText() != "") {
+			win = true;
+		}
+		if (buttons[6].getText() == buttons[7].getText() && buttons[8].getText() == buttons[6].getText()
+				&& buttons[6].getText() != "") {
+			win = true;
+		}
+
+		// Vertical
+		if (buttons[0].getText() == buttons[3].getText() && buttons[6].getText() == buttons[0].getText()
+				&& buttons[0].getText() != "") {
+			win = true;
+		}
+		if (buttons[1].getText() == buttons[4].getText() && buttons[7].getText() == buttons[1].getText()
+				&& buttons[1].getText() != "") {
+			win = true;
+		}
+		if (buttons[2].getText() == buttons[5].getText() && buttons[8].getText() == buttons[2].getText()
+				&& buttons[2].getText() != "") {
+			win = true;
+		}
+
+		// Diagonal
+		if (buttons[0].getText() == buttons[4].getText() && buttons[8].getText() == buttons[0].getText()
+				&& buttons[0].getText() != "") {
+			win = true;
+		}
+		if (buttons[2].getText() == buttons[4].getText() && buttons[6].getText() == buttons[2].getText()
+				&& buttons[2].getText() != "") {
+			win = true;
+		}
+
+		if (win) {
+			if (turn % 2 == 0)
+				winner = 2;
+
+			else
+				winner = 1;
+
+			JOptionPane.showMessageDialog(null, "Player " + winner + " WINS!");
+			ResetBoard();
+
+		} else {
+			if (turn == 9 && winner == -1) {
+				JOptionPane.showMessageDialog(null, "Tie Game!");
+				win=true;
+				ResetBoard();
+			}
+
+		}
+		return win;
+
+	}
+
+	private void ResetBoard() {
+
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i].setText("");
+			buttons[i].setEnabled(true);
+			buttons[i].setBackground(defaultColor);
+
+		}
+		winner = -1;
+		turn = 0;
+
+	}
+	
+}
+
+	
